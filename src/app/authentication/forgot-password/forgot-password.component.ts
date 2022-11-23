@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  constructor() { }
+  constructor(private themeService: ThemeService) { }
+
+  isEmailVerified=true;
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  passwordControl=new FormControl('', [Validators.required]);
+  resetPasswordControl=new FormControl('', [Validators.required]);
 
   ngOnInit(): void {
+
   }
+
+
 
 }

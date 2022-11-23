@@ -1,1 +1,57 @@
-<p>login works!</p>
+
+
+<div _class="container-fluid  h-100" style="height: 100vh;">
+  <div class="col align-items-center justify-content-center d-flex h-100">
+    <div class="col-md-5">
+      <mat-card>
+        <form class="example-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <mat-card-header>
+            <mat-card-title>Login</mat-card-title>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content class="mt-4">
+            <div class="col">
+
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+
+                <mat-error *ngIf="loginFormControl['email'].errors['email'] && !loginFormControl['email'].errors['required']">
+                  Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="loginFormControl['email'].errors['required']">
+                  Email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+
+            <div class="col">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="Ex. pat@example.com">
+
+                <mat-error *ngIf="loginFormControl['password'].errors['required']">
+                  Password is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+
+          </mat-card-content>
+          <mat-card-footer>
+            <div class="col text-end margin-right ">
+              <button mat-raised-button color="accent">Login</button>
+            </div>
+            <div class="col text-center ">
+              <p> <a routerLink="/login/forgot-password">Forgot password ? </a><span><a routerLink="/login/sign-up">Sign
+                    up</a></span></p>
+            </div>
+          </mat-card-footer>
+        </form>
+      </mat-card>
+
+    </div>
+
+  </div>
+</div>
