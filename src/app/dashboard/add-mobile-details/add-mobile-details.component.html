@@ -1,1 +1,185 @@
-<p>add-mobile-details works!</p>
+<div _class="container-fluid  h-100" style="height: 100vh">
+  <div class="col align-items-center justify-content-center d-flex h-100">
+    <div class="col-md-8 col-sm-12">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Sign up</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <form [formGroup]="mobileDetailsForm" (ngSubmit)="onSubmit()">
+          <mat-card-content class="mt-4">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Customer name</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="customer_name"
+                    placeholder="Ex. pat@example.com"
+                  />
+                  <mat-error
+                    *ngIf="deviceFormControl?.customer_name?.errors?.required"
+                  >
+                    Customer name is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Recieved date</mat-label>
+                  <input
+                    type="date"
+                    matInput
+                    formControlName="received_date"
+                    placeholder="Monday 12 august"
+                  />
+
+                  <mat-error
+                    *ngIf="deviceFormControl?.received_date?.errors?.required"
+                  >
+                    Date is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Mobile 1</mat-label>
+                  <input
+                    type="number"
+                    matInput
+                    formControlName="mobile_no"
+                    placeholder="Mobile number"
+                  />
+
+                  <mat-error
+                    *ngIf="deviceFormControl?.mobile_no?.errors?.required"
+                  >
+                    Mobile number is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Aleternate Mobile </mat-label>
+                  <input
+                    type="tel"
+                    matInput
+                    formControlName="aleternate_mobile"
+                    placeholder="Aleternate Mobile number"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Company Name</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="company_name"
+                    placeholder="Company name"
+                  />
+                  <mat-error
+                    *ngIf="deviceFormControl?.company_name?.errors?.required"
+                  >
+                    Model number is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Model Number</mat-label>
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="model_no"
+                    placeholder="Ex. 6600"
+                  />
+                  <mat-error
+                    *ngIf="deviceFormControl?.model_no?.errors?.required"
+                  >
+                    Model number is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="p-0">
+                  <img
+                    [src]="photo_url_1"
+                    style="width: 150px; height: 150px"
+                  />
+                  <input
+                    type="file"
+                    formControlName="device_photo_1"
+                    name="filename"
+                    class="mt-2"
+                    (change)="onSelectFile($event, 'url_1')"
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="p-0">
+                  <img
+                    [src]="photo_url_2"
+                    style="width: 150px; height: 150px"
+                  />
+                  <input
+                    type="file"
+                    formControlName="device_photo_2"
+                    name="filename"
+                    class="mt-2"
+                    (change)="onSelectFile($event, 'url_2')"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>IMEI No</mat-label>
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="iemi"
+                      placeholder="Ex. IEMI12345"
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Price</mat-label>
+                    <input
+                      type="number"
+                      matInput
+                      formControlName="price"
+                      placeholder="10000/-"
+                    />
+
+                    <mat-error
+                      *ngIf="deviceFormControl?.price?.errors?.required"
+                    >
+                      Price is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-footer>
+            <div class="col text-end me-3">
+              <button mat-raised-button color="accent">Submit</button>
+            </div>
+          </mat-card-footer>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>
