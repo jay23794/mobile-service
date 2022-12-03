@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
+import { Observable } from 'rxjs';
+
+import { Subject } from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'app-add-mobile-details',
@@ -8,9 +12,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AddMobileDetailsComponent implements OnInit {
   mobileDetailsForm:any
-  constructor() { }
+   webcamImage: any = null;
+   constructor() { }
+
   photo_url_1:any
   photo_url_2:any
+  public showImage_1 = false;
+  public showImage_2 = false;
+  deviceList:any[]=[]
+  webCam=false
   ngOnInit(): void {
     this.mobileDetailsForm=new FormGroup({
       customer_name :new FormControl('',  [Validators.required]),
@@ -24,6 +34,7 @@ export class AddMobileDetailsComponent implements OnInit {
       price:new FormControl('', [Validators.required]),
       received_date:new FormControl('', [Validators.required])
     })
+
   }
   onSubmit(){
     console.log(this.mobileDetailsForm);
@@ -37,15 +48,39 @@ export class AddMobileDetailsComponent implements OnInit {
      return this.mobileDetailsForm.controls
   }
   onSelectFile(event:any,imageType:string){
-    var reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (event) => {
-        if(imageType==="url_1"){
-          this.photo_url_1 = event?.target?.result;
-        }else{
-          this.photo_url_2 = event?.target?.result;
-        }
+    if(event.target.files['length']<=2){
+      for (let index = 0; index < event.target.files['length']; index++) {
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[index]);
+        reader.onload = (event) => {
+          this.deviceList.push(event?.target)
+       }
+    }
+  }else{
+    console.log("CANNOT CHOOSE MORE THAN 2");
+ }
+}
 
+onRemoveFile(removedFile:string){
+  if(removedFile==="showImage_1"){
+    this.showImage_1=false
+    this.photo_url_1=""
+    this.mobileDetailsForm.value.device_photo_1=""
+  }else{
+    this.showImage_2=false
+    this.photo_url_2=""
+    this.mobileDetailsForm.value.device_photo_2=""
   }
+
+ // console.log(this.mobileDetailsForm.value.device_photo_1.reset());
+}
+
+
+handleImage(webcamImage: WebcamImage) {
+  console.log(webcamImage.imageAsDataUrl);
+  this.webcamImage = webcamImage;
+}
+showWebCam(){
+  this.webCam=!this.webCam
 }
 }

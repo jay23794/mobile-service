@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { WebcamModule } from 'ngx-webcam';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    WebcamModule
   ],
   providers: [],
   bootstrap: [AppComponent]

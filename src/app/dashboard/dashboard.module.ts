@@ -14,11 +14,14 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
+import { WebcamModule } from 'ngx-webcam';
+import { AppCameraComponent } from './add-mobile-details/app-camera/app-camera.component';
 @NgModule({
   declarations: [
     AddMobileDetailsComponent,
     ShowMobileDetailsComponent,
-    DashboardComponent
+    DashboardComponent,
+    AppCameraComponent
   ],
   imports: [
     CommonModule,
@@ -32,8 +35,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatToolbarModule,
     MatIconModule,
     MatListModule,
-    MatMenuModule
-
+    MatMenuModule,
+    WebcamModule
   ]
 })
 export class DashboardModule { }
