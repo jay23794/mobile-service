@@ -2,9 +2,16 @@ input[type='file'] {
   color: #fff0
 }
 .img-size{
-  width: 150px;
-  height: 150px
+  width: 120px;
+  height: 120px
 }
 .pointer{
   cursor: pointer;
+}
+.icon-position{
+    position: absolute;
+    width: inherit;
+    display: flex;
+    justify-content: end;
+
 }

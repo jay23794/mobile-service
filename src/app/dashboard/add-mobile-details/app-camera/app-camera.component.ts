@@ -40,13 +40,11 @@ export class AppCameraComponent implements OnInit {
 
   public handleInitError(error: WebcamInitError): void {
     console.log(error);
-
     this.errors.push(error);
   }
   public showNextWebcam(directionOrDeviceId: boolean|string): void {
     console.log('active device: ' + directionOrDeviceId );
-
-   this.nextWebcam.next(directionOrDeviceId);
+    this.nextWebcam.next(directionOrDeviceId);
   }
   public cameraWasSwitched(deviceId: string): void {
     console.log('active device: ' + deviceId);
@@ -55,7 +53,7 @@ export class AppCameraComponent implements OnInit {
 
   public handleImage(webcamImage: WebcamImage): void {
      console.info('received webcam image', webcamImage);
-    this.pictureTaken.emit(webcamImage);
+     this.pictureTaken.emit(webcamImage);
   }
   public get triggerObservable(): Observable<void> {
     return this.trigger.asObservable();
