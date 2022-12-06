@@ -11,7 +11,7 @@
             <div class="row">
               <div class="col-md-6">
                 <mat-form-field class="example-full-width" appearance="fill">
-                  <mat-label>Customer names</mat-label>
+                  <mat-label>Customer name</mat-label>
                   <input
                     type="text"
                     matInput
@@ -117,7 +117,7 @@
                   <input
                     type="text"
                     matInput
-                    formControlName="iemi"
+                    formControlName="imei"
                     placeholder="Ex. IEMI12345"
                   />
                 </mat-form-field>
@@ -138,8 +138,15 @@
                 </mat-form-field>
               </div>
             </div>
-
             <div class="col-md-12">
+              <mat-form-field class="example-full-width" appearance="fill" hintLabel="Max 300 characters">
+                <mat-label>Additional details</mat-label>
+                <textarea matInput #textArea  formControlName="additional_details" placeholder="Addtopnal comments" [maxlength]="300"></textarea>
+                <mat-hint align="end">{{textArea.value.length || 0}}/300</mat-hint>
+
+              </mat-form-field>
+             </div>
+            <div class="col-md-12 mt-2">
               <div class="card">
                 <div class="card-body" style="height: 150px">
                   <ng-container *ngIf="areImageChoosen; else showChoosedImage">
@@ -173,6 +180,7 @@
                 </div>
               </div>
             </div>
+
             <div class="col-md-12">
               <div class="d-flex align-items-center">
                 <!-- <div>
@@ -202,9 +210,13 @@
                     accept=".png,.jpge/*"
                     (change)="onSelectFile($event, 'url_1')"
                   />
+                  <!-- <mat-error *ngIf="deviceFormControl?.device_photo_1?.errors?.required">
+                    Atleast 1 image is <strong>required {{!deviceFormControl?.device_photo_1?.errors.required | json}}</strong>
+                  </mat-error> -->
                 </div>
               </div>
             </div>
+
           </mat-card-content>
           <mat-card-footer>
             <div class="col text-center mt-3 mb-3">

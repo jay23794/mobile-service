@@ -1,9 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { Observable } from 'rxjs';
-
-import { Subject } from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'app-add-mobile-details',
@@ -13,14 +10,8 @@ import { Subject } from 'rxjs/internal/Subject';
 export class AddMobileDetailsComponent implements OnInit {
   mobileDetailsForm: any;
   webcamImage: any = null;
-  defaultImageMessage = 'Choose image';
   areImageChoosen = true;
-  constructor() {}
 
-  photo_url_1: any;
-  photo_url_2: any;
-  public showImage_1 = false;
-  public showImage_2 = false;
   deviceList: any[] = [];
   webCam = false;
   ngOnInit(): void {
@@ -30,19 +21,19 @@ export class AddMobileDetailsComponent implements OnInit {
         Validators.required,
         Validators.maxLength(10),
       ]),
-      aleternate_mobile: new FormControl('', [Validators.required]),
+      aleternate_mobile: new FormControl('', [Validators.maxLength(10)]),
       company_name: new FormControl('', [Validators.required]),
       model_no: new FormControl('', [Validators.required]),
       device_photo_1: new FormControl('', [Validators.required]),
-      device_photo_2: new FormControl('', [Validators.required]),
-      iemi: new FormControl('', [Validators.required]),
+      additional_details: new FormControl('', [Validators.maxLength(20),Validators.minLength(10)]),
+      imei: new FormControl('', [Validators.maxLength(15)]),
       price: new FormControl('', [Validators.required]),
       received_date: new FormControl('', [Validators.required]),
     });
   }
   onSubmit() {
     console.log(this.mobileDetailsForm);
-    if (this.mobileDetailsForm.valid) {
+   if (this.mobileDetailsForm.valid) {
       console.log('FORM SUBMITED');
     }
   }
