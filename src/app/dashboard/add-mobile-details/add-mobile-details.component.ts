@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
+import { DeviceFormData } from '../model/device-data.interface';
 
 @Component({
   selector: 'app-add-mobile-details',
@@ -11,7 +12,7 @@ export class AddMobileDetailsComponent implements OnInit {
   mobileDetailsForm: any;
   webcamImage: any = null;
   areImageChoosen = true;
-
+  formData:DeviceFormData[] =[]
   deviceList: any[] = [];
   webCam = false;
   ngOnInit(): void {
@@ -25,16 +26,31 @@ export class AddMobileDetailsComponent implements OnInit {
       company_name: new FormControl('', [Validators.required]),
       model_no: new FormControl('', [Validators.required]),
       device_photo_1: new FormControl('', [Validators.required]),
-      additional_details: new FormControl('', [Validators.maxLength(20),Validators.minLength(10)]),
+      additional_details: new FormControl('', []),
       imei: new FormControl('', [Validators.maxLength(15)]),
       price: new FormControl('', [Validators.required]),
       received_date: new FormControl('', [Validators.required]),
     });
   }
   onSubmit() {
-    console.log(this.mobileDetailsForm);
-   if (this.mobileDetailsForm.valid) {
-      console.log('FORM SUBMITED');
+    if (this.mobileDetailsForm.valid) {
+      this.formData.push({
+        name:this.mobileDetailsForm.value.customer_name,
+        additional_details:this.mobileDetailsForm.value.additional_details,
+        aleternate_mobile:this.mobileDetailsForm.value.aleternate_mobile,
+        company_name:this.mobileDetailsForm.value.company_name,
+        device_list:this.deviceList,
+        device_photo_1:this.mobileDetailsForm.value.device_photo_1,
+        imei:this.mobileDetailsForm.value.imei,
+        mobile_no:this.mobileDetailsForm.value.mobile_no,
+        model_no:this.mobileDetailsForm.value.model_no,
+        price:this.mobileDetailsForm?.value?.price,
+        received_date:this.mobileDetailsForm?.value?.received_date,
+      })
+      console.log('FORM SUBMITED',this.formData);
+      localStorage.setItem("deviceDetails", JSON.stringify(this.formData));
+
+
     }
   }
   get deviceFormControl() {
@@ -58,6 +74,7 @@ export class AddMobileDetailsComponent implements OnInit {
   onRemoveFile(selectedFile: any, i: number) {
     this.deviceList.splice(0, 1);
     if (this.deviceList.length < 1) {
+      this.mobileDetailsForm.get('device_photo_1').setValue("");
       this.areImageChoosen = true;
     }
   }
@@ -69,3 +86,4 @@ export class AddMobileDetailsComponent implements OnInit {
     this.webCam = !this.webCam;
   }
 }
+

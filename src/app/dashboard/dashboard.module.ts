@@ -16,6 +16,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import { WebcamModule } from 'ngx-webcam';
 import { AppCameraComponent } from './add-mobile-details/app-camera/app-camera.component';
+import {MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [
     AddMobileDetailsComponent,
@@ -36,7 +37,8 @@ import { AppCameraComponent } from './add-mobile-details/app-camera/app-camera.c
     MatIconModule,
     MatListModule,
     MatMenuModule,
-    WebcamModule
+    WebcamModule,
+    MatTableModule
   ]
 })
 export class DashboardModule { }
