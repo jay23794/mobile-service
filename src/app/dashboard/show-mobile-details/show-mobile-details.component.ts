@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewDetailsModalComponent } from 'src/app/shared/view-details-modal/view-details-modal.component';
 import { DeviceFormData } from '../model/device-data.interface';
 
 @Component({
@@ -8,7 +10,7 @@ import { DeviceFormData } from '../model/device-data.interface';
 })
 export class ShowMobileDetailsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
   displayedColumns: string[] = [];
   dataSource:DeviceFormData[] =[]
   extraColumns=['device_list','device_photo_1','additional_details','imei']
@@ -28,5 +30,13 @@ export class ShowMobileDetailsComponent implements OnInit {
       this.notDataFound=false
     }
 
+  }
+
+  onViewDetails(deviceDetails:DeviceFormData){
+    this.dialog.open(ViewDetailsModalComponent, {
+      data:deviceDetails,
+      height: '400px',
+       width: '600px',
+    });
   }
 }

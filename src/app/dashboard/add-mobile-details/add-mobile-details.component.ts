@@ -34,6 +34,7 @@ export class AddMobileDetailsComponent implements OnInit {
   }
   onSubmit() {
     if (this.mobileDetailsForm.valid) {
+      //console.log('FORM SUBMITED',this.deviceList);
       this.formData.push({
         name:this.mobileDetailsForm.value.customer_name,
         additional_details:this.mobileDetailsForm.value.additional_details,
@@ -47,22 +48,19 @@ export class AddMobileDetailsComponent implements OnInit {
         price:this.mobileDetailsForm?.value?.price,
         received_date:this.mobileDetailsForm?.value?.received_date,
       })
-      console.log('FORM SUBMITED',this.formData);
-      localStorage.setItem("deviceDetails", JSON.stringify(this.formData));
-
-
+       localStorage.setItem("deviceDetails", JSON.stringify(this.formData));
+     }
+  }
+    get deviceFormControl() {
+      return this.mobileDetailsForm.controls;
     }
-  }
-  get deviceFormControl() {
-    return this.mobileDetailsForm.controls;
-  }
   onSelectFile(event: any, imageType: string) {
     if (event.target.files['length'] <= 2 && this.deviceList.length < 2) {
       for (let index = 0; index < event.target.files['length']; index++) {
         var reader = new FileReader();
         reader.readAsDataURL(event.target.files[index]);
         reader.onload = (event) => {
-          this.deviceList.push(event?.target);
+          this.deviceList.push(event?.target?.result);
         };
       }
       this.areImageChoosen = false;

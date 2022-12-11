@@ -9,5 +9,5 @@ export interface DeviceFormData {
   imei: string;
   price: string;
   received_date: string;
-  device_list:any[]
+  device_list:any
 }

@@ -13,6 +13,7 @@ import { WebcamModule } from 'ngx-webcam';
   declarations: [
     AppComponent,
 
+
   ],
   imports: [
     BrowserModule,
@@ -20,7 +21,8 @@ import { WebcamModule } from 'ngx-webcam';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSlideToggleModule,
-    WebcamModule
+    WebcamModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
