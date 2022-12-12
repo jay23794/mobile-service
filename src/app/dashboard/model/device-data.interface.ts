@@ -10,4 +10,5 @@ export interface DeviceFormData {
   price: string;
   received_date: string;
   device_list:any
+  uuid:string
 }

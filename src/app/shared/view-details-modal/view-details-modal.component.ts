@@ -21,4 +21,5 @@ export class ViewDetailsModalComponent implements OnInit {
     this.toggleEditForm =!this.toggleEditForm
   }
 
+
 }

@@ -39,4 +39,8 @@ export class ShowMobileDetailsComponent implements OnInit {
        width: '600px',
     });
   }
+  onDeleteCustomerdetails(uuid:string){
+    this.dataSource=this.dataSource.filter((data)=>data.uuid!=uuid)
+    localStorage.setItem('deviceDetails',JSON.stringify(this.dataSource))
+  }
 }

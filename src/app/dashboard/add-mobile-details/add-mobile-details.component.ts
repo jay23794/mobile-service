@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { DeviceFormData } from '../model/device-data.interface';
-
+import * as uuid from 'uuid';
 @Component({
   selector: 'app-add-mobile-details',
   templateUrl: './add-mobile-details.component.html',
@@ -34,8 +34,8 @@ export class AddMobileDetailsComponent implements OnInit {
   }
   onSubmit() {
     if (this.mobileDetailsForm.valid) {
-      //console.log('FORM SUBMITED',this.deviceList);
-      this.formData.push({
+    let id= uuid.v4().split("-")[0]
+     this.formData.push({
         name:this.mobileDetailsForm.value.customer_name,
         additional_details:this.mobileDetailsForm.value.additional_details,
         aleternate_mobile:this.mobileDetailsForm.value.aleternate_mobile,
@@ -47,8 +47,16 @@ export class AddMobileDetailsComponent implements OnInit {
         model_no:this.mobileDetailsForm.value.model_no,
         price:this.mobileDetailsForm?.value?.price,
         received_date:this.mobileDetailsForm?.value?.received_date,
+        uuid:id
       })
-       localStorage.setItem("deviceDetails", JSON.stringify(this.formData));
+     if(localStorage.getItem('deviceDetails')){
+       let details = JSON.parse( localStorage.getItem('deviceDetails') || '{}')
+           details.push(this.formData[0])
+           localStorage.setItem("deviceDetails", JSON.stringify(details));
+      }else{
+        localStorage.setItem("deviceDetails", JSON.stringify(this.formData));
+      }
+
      }
   }
     get deviceFormControl() {

@@ -39,13 +39,14 @@ export class EditDeviceDetailsComponent implements OnInit {
     if(this.deviceDetails.device_list.length>0){
       this.areImageChoosen = false;
     }
+
   }
   get deviceFormControl() {
     return this.mobileDetailsForm.controls;
   }
   onSubmit(){
+    this.formData=[]
     if (this.mobileDetailsForm.valid) {
-      //console.log('FORM SUBMITED',this.deviceList);
       this.formData.push({
         name:this.mobileDetailsForm.value.customer_name,
         additional_details:this.mobileDetailsForm.value.additional_details,
@@ -58,10 +59,24 @@ export class EditDeviceDetailsComponent implements OnInit {
         model_no:this.mobileDetailsForm.value.model_no,
         price:this.mobileDetailsForm?.value?.price,
         received_date:this.mobileDetailsForm?.value?.received_date,
+        uuid:this.deviceDetails.uuid
       })
-       console.log('FORM SUBMITED', this.formData);
-       //localStorage.setItem("deviceDetails", JSON.stringify(this.formData));
+       if(localStorage.getItem('deviceDetails')){
+        this.updateLocalStorage()
+       }else{
+         localStorage.setItem("deviceDetails", JSON.stringify(this.formData));
+       }
      }
+  }
+  updateLocalStorage() {
+    let details:DeviceFormData[]
+    details = JSON.parse( localStorage.getItem('deviceDetails') || '{}')
+    details.forEach((element:any,i) => {
+     if(this.deviceDetails.uuid===element.uuid){
+       details[i]=this.formData[0]
+       localStorage.setItem("deviceDetails", JSON.stringify(details))
+     }
+   });
   }
   onRemoveFile() {
     this.deviceDetails.device_list.shift();
