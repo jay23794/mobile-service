@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { WebcamModule } from 'ngx-webcam';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { WebcamModule } from 'ngx-webcam';
     MatToolbarModule,
     MatSlideToggleModule,
     WebcamModule,
+    HttpClientModule,
 
   ],
   providers: [],
