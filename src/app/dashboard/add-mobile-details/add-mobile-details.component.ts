@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { DeviceFormData } from '../model/device-data.interface';
 import * as uuid from 'uuid';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-add-mobile-details',
   templateUrl: './add-mobile-details.component.html',
@@ -15,6 +16,12 @@ export class AddMobileDetailsComponent implements OnInit {
   formData:DeviceFormData[] =[]
   deviceList: any[] = [];
   webCam = false;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  constructor(private _snackBar: MatSnackBar){
+
+  }
+
   ngOnInit(): void {
     this.mobileDetailsForm = new FormGroup({
       customer_name: new FormControl('', [Validators.required]),
@@ -34,7 +41,7 @@ export class AddMobileDetailsComponent implements OnInit {
   }
   onSubmit() {
     if (this.mobileDetailsForm.valid) {
-    let id= uuid.v4().split("-")[0]
+    const id= uuid.v4().split("-")[0]
      this.formData.push({
         name:this.mobileDetailsForm.value.customer_name,
         additional_details:this.mobileDetailsForm.value.additional_details,
@@ -50,11 +57,19 @@ export class AddMobileDetailsComponent implements OnInit {
         uuid:id
       })
      if(localStorage.getItem('deviceDetails')){
-       let details = JSON.parse( localStorage.getItem('deviceDetails') || '{}')
+           const details = JSON.parse( localStorage.getItem('deviceDetails') || '{}')
            details.push(this.formData[0])
            localStorage.setItem("deviceDetails", JSON.stringify(details));
+           this.mobileDetailsForm.reset();
+           this.openSnackBar()
+
+
       }else{
         localStorage.setItem("deviceDetails", JSON.stringify(this.formData));
+        this.mobileDetailsForm.reset();
+        this.openSnackBar()
+
+
       }
 
      }
@@ -62,10 +77,10 @@ export class AddMobileDetailsComponent implements OnInit {
     get deviceFormControl() {
       return this.mobileDetailsForm.controls;
     }
-  onSelectFile(event: any, imageType: string) {
+  onSelectFile(event: any) {
     if (event.target.files['length'] <= 2 && this.deviceList.length < 2) {
       for (let index = 0; index < event.target.files['length']; index++) {
-        var reader = new FileReader();
+        const reader = new FileReader();
         reader.readAsDataURL(event.target.files[index]);
         reader.onload = (event) => {
           this.deviceList.push(event?.target?.result);
@@ -90,6 +105,13 @@ export class AddMobileDetailsComponent implements OnInit {
   }
   showWebCam() {
     this.webCam = !this.webCam;
+  }
+
+  openSnackBar() {
+    this._snackBar.open('Device added successfully !', 'Ok', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
   }
 }
 

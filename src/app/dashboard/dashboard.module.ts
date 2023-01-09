@@ -20,6 +20,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ViewDetailsModalComponent } from '../shared/view-details-modal/view-details-modal.component';
 import { EditDeviceDetailsComponent } from '../shared/edit-device-details/edit-device-details.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AddMobileDetailsComponent,
@@ -45,6 +46,7 @@ import { EditDeviceDetailsComponent } from '../shared/edit-device-details/edit-d
     WebcamModule,
     MatTableModule,
     MatDialogModule,
+    MatSnackBarModule
 
   ]
 })

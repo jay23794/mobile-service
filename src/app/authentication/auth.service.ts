@@ -23,8 +23,8 @@ export class AuthService {
   login(email: string) {
     return this.http.post<any>(`${environment.apiUrl}/admin/login`, { email })
         .pipe(map(user => {
-             localStorage.setItem('user', JSON.stringify(user['adminData']));
-             this.userSubject.next(user['adminData']);
+             localStorage.setItem('user', JSON.stringify(user['user_details']));
+             this.userSubject.next(user['user_details']);
             return user;
         }));
 }

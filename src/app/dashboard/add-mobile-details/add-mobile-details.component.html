@@ -1,12 +1,12 @@
-<div _class="container-fluid  h-100" style="height: 100vh">
-  <div class="col align-items-center justify-content-center d-flex h-100">
-    <div class="col-md-8 col-sm-8">
+<div _class="container-fluid">
+  <div class="col  justify-content-center d-flex h-100 px-4 mb-2">
+    <div class="col-md-8 col-sm-8 mt-5">
       <mat-card>
         <mat-card-header>
           <mat-card-title>Add Device</mat-card-title>
         </mat-card-header>
         <mat-divider></mat-divider>
-        <form [formGroup]="mobileDetailsForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="mobileDetailsForm" >
           <mat-card-content class="mt-4">
             <div class="row">
               <div class="col-md-6">
@@ -208,7 +208,7 @@
                     class="mt-2 mx-3 p-0"
                     multiple="multiple"
                     accept=".png,.jpge/*"
-                    (change)="onSelectFile($event, 'url_1')"
+                    (change)="onSelectFile($event)"
                   />
                   <!-- <mat-error *ngIf="deviceFormControl?.device_photo_1?.errors?.required">
                     Atleast 1 image is <strong>required {{!deviceFormControl?.device_photo_1?.errors.required | json}}</strong>
@@ -220,7 +220,7 @@
           </mat-card-content>
           <mat-card-footer>
             <div class="col text-center mt-3 mb-3">
-              <button mat-raised-button color="accent">Submit</button>
+              <button  type="button" (click)="onSubmit()" mat-raised-button color="accent">Submit</button>
             </div>
           </mat-card-footer>
         </form>
