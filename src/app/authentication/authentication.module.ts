@@ -12,6 +12,9 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ChangePasswordComponent } from './forgot-password/change-password/change-password.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptorService } from '../_helpers/jwt-inteceptor/jwt-interceptor.service';
+import { ErrorInterceptor } from '../_helpers/error-interceptor/error.service';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -29,6 +32,9 @@ import { ChangePasswordComponent } from './forgot-password/change-password/chang
     MatDividerModule,
     MatSlideToggleModule,
 
-  ]
-})
+  ],
+
+},
+
+)
 export class AuthenticationModule { }

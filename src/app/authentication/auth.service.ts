@@ -28,10 +28,12 @@ export class AuthService {
             return user;
         }));
 }
-    logout() {
-      // remove user from local storage to log user out
-      localStorage.removeItem('user');
-      this.userSubject.next(null);
-      this.router.navigate(['/login']);
-    }
+    logout(email:string) {
+      return this.http.post<any>(`${environment.apiUrl}/admin/logout`, { email })
+      .pipe(map(user => {
+          localStorage.removeItem('user');
+          this.userSubject.next(null);
+          this.router.navigate(['/login']);
+          return user;
+      }));}
 }
