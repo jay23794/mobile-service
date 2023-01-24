@@ -35,5 +35,12 @@ export class AuthService {
           this.userSubject.next(null);
           this.router.navigate(['/login']);
           return user;
-      }));}
+      }))
+    }
+
+    removeUserData(){
+          localStorage.removeItem('user');
+          this.userSubject.next(null);
+          this.router.navigate(['/login']);
+    }
 }

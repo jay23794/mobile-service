@@ -5,3 +5,16 @@ img{
 svg{
   cursor: pointer;
 }
+.icon-position{
+  position: absolute;
+  width: inherit;
+  display: flex;
+  justify-content: end;
+}
+.pointer{
+  cursor: pointer;
+}
+
+mat-form-field {
+  margin-right: 12px;
+}

@@ -13,18 +13,18 @@
       <div>
         <div class="d-flex justify-content-between">
           <p>Name <span >{{deviceDetails.name}}</span></p>
-          <p>Date <span >{{deviceDetails.received_date}}</span></p>
+          <p>Date <span >{{deviceDetails.receivedDate}}</span></p>
         </div>
-         <p>Device <span>{{deviceDetails.company_name}} {{deviceDetails.model_no}}</span></p>
+         <p>Device <span>{{deviceDetails.companyName}} {{deviceDetails.modelNo}}</span></p>
          <p>Customer Price <span>{{deviceDetails.price}}</span></p>
         <div class="d-flex justify-content-between">
-          <p>Mobile1  <span>{{deviceDetails.mobile_no}}</span></p>
-          <p>Mobile2  <span>{{deviceDetails.aleternate_mobile}}</span></p>
+          <p>Mobile1  <span>{{deviceDetails.mobileNo}}</span></p>
+          <p>Mobile2  <span>{{deviceDetails.aleternateMobile}}</span></p>
         </div>
         <p>IMEI <span>{{deviceDetails.imei}}</span></p>
          <div class="row">
           <span>Device Image</span>
-          <div class="col-md-6" *ngFor="let imageUrl of deviceDetails.device_list">
+          <div class="col-md-6" *ngFor="let imageUrl of deviceDetails.deviceList">
             <img src="{{imageUrl}}">
           </div>
          </div>

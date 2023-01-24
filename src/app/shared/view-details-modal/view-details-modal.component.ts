@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DeviceFormData } from 'src/app/dashboard/model/device-data.interface';
+import { deviceDetails } from 'src/app/common/common-data-model';
+
 
 @Component({
   selector: 'app-view-details-modal',
@@ -10,7 +11,7 @@ import { DeviceFormData } from 'src/app/dashboard/model/device-data.interface';
 export class ViewDetailsModalComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ViewDetailsModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public deviceDetails: DeviceFormData,) { }
+    @Inject(MAT_DIALOG_DATA) public deviceDetails: deviceDetails,) { }
     toggleEditForm=true
 
     ngOnInit(): void {

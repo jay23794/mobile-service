@@ -1,14 +1,18 @@
 <div class="container-fluid d-flex justify-content-center " style="height:90vh">
   <div class="col-md-8 col-sm-12 mt-5" >
-    <ng-container *ngIf="notDataFound; else showMsg">
+    <ng-container *ngIf="isDevicesFound; else showMsg">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+      <ng-container matColumnDef="index">
+        <th class="text-center" mat-header-cell *matHeaderCellDef>index </th>
+        <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+      </ng-container>
       <ng-container matColumnDef="uuid">
         <th class="text-center" mat-header-cell *matHeaderCellDef>Id </th>
         <td mat-cell *matCellDef="let element"> {{element.uuid}} </td>
       </ng-container>
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="customer_name">
         <th class="text-center" mat-header-cell *matHeaderCellDef>Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.customer_name}} </td>
       </ng-container>
       <ng-container matColumnDef="received_date">
         <th class="text-center" mat-header-cell *matHeaderCellDef> Received date </th>
@@ -22,10 +26,7 @@
         <th class="text-center" mat-header-cell *matHeaderCellDef> Alternate Contact </th>
         <td mat-cell *matCellDef="let element"> {{element.aleternate_mobile}} </td>
       </ng-container>
-    <ng-container matColumnDef="additional_details">
-        <th class="text-center" mat-header-cell *matHeaderCellDef> Additional details </th>
-        <td mat-cell *matCellDef="let element"> {{element.additional_details}} </td>
-      </ng-container>
+
      <ng-container matColumnDef="company_name">
         <th class="text-center" mat-header-cell *matHeaderCellDef> Company name </th>
         <td mat-cell *matCellDef="let element"> {{element.company_name}} </td>

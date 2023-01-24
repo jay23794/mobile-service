@@ -1,24 +1,33 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { DeviceFormData } from '../model/device-data.interface';
+import { WebcamImage } from 'ngx-webcam';
+
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+import { deviceDetails } from 'src/app/common/common-data-model';
 import * as uuid from 'uuid';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { DashboardService } from '../services/dashboard.service';
+import { Observable, Subscription, take } from 'rxjs';
 @Component({
   selector: 'app-add-mobile-details',
   templateUrl: './add-mobile-details.component.html',
   styleUrls: ['./add-mobile-details.component.scss'],
 })
-export class AddMobileDetailsComponent implements OnInit {
-  mobileDetailsForm: any;
+export class AddMobileDetailsComponent implements OnInit,OnDestroy {
+  mobileDetailsForm!: FormGroup;
   webcamImage: any = null;
   areImageChoosen = true;
-  formData:DeviceFormData[] =[]
+  formData!: deviceDetails;
   deviceList: any[] = [];
   webCam = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-  constructor(private _snackBar: MatSnackBar){
+  addDevices$!:Observable<deviceDetails>
+  subscription!:Subscription
+  constructor(private _snackBar: MatSnackBar,private dashboardService:DashboardService ) {
 
   }
 
@@ -37,48 +46,31 @@ export class AddMobileDetailsComponent implements OnInit {
       imei: new FormControl('', [Validators.maxLength(15)]),
       price: new FormControl('', [Validators.required]),
       received_date: new FormControl('', [Validators.required]),
+      uuid:new FormControl(uuid.v4().split('-')[0])
     });
   }
   onSubmit() {
     if (this.mobileDetailsForm.valid) {
-    const id= uuid.v4().split("-")[0]
-     this.formData.push({
-        name:this.mobileDetailsForm.value.customer_name,
-        additional_details:this.mobileDetailsForm.value.additional_details,
-        aleternate_mobile:this.mobileDetailsForm.value.aleternate_mobile,
-        company_name:this.mobileDetailsForm.value.company_name,
-        device_list:this.deviceList,
-        device_photo_1:this.mobileDetailsForm.value.device_photo_1,
-        imei:this.mobileDetailsForm.value.imei,
-        mobile_no:this.mobileDetailsForm.value.mobile_no,
-        model_no:this.mobileDetailsForm.value.model_no,
-        price:this.mobileDetailsForm?.value?.price,
-        received_date:this.mobileDetailsForm?.value?.received_date,
-        uuid:id
-      })
-     if(localStorage.getItem('deviceDetails')){
-           const details = JSON.parse( localStorage.getItem('deviceDetails') || '{}')
-           details.push(this.formData[0])
-           localStorage.setItem("deviceDetails", JSON.stringify(details));
-           this.mobileDetailsForm.reset();
-           this.openSnackBar()
+      console.log(this.deviceList,this.mobileDetailsForm.value);
 
+      this.formData = this.mobileDetailsForm.value;
+      this.formData.deviceList   = this.deviceList
+      this.formData.email = "jayprmr27@gmail.com"
 
-      }else{
-        localStorage.setItem("deviceDetails", JSON.stringify(this.formData));
-        this.mobileDetailsForm.reset();
-        this.openSnackBar()
+      this.addDevices$ = this.dashboardService.addDevice(this.formData)
+       this.subscription =this.addDevices$.pipe(take(1)).subscribe((response)=>{
+        this.resetForm()
+       })
 
-
-      }
-
-     }
-  }
-    get deviceFormControl() {
-      return this.mobileDetailsForm.controls;
     }
+  }
+  get deviceFormControl() {
+    return this.mobileDetailsForm.controls as any;
+  }
   onSelectFile(event: any) {
     if (event.target.files['length'] <= 2 && this.deviceList.length < 2) {
+      console.log("D");
+
       for (let index = 0; index < event.target.files['length']; index++) {
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[index]);
@@ -92,10 +84,10 @@ export class AddMobileDetailsComponent implements OnInit {
     }
   }
 
-  onRemoveFile(selectedFile: any, i: number) {
-    this.deviceList.splice(0, 1);
+  onRemoveFile(imageIndex: number) {
+    this.deviceList.splice(imageIndex, 1);
     if (this.deviceList.length < 1) {
-      this.mobileDetailsForm.get('device_photo_1').setValue("");
+      this.mobileDetailsForm.value.device_photo_1 = '';
       this.areImageChoosen = true;
     }
   }
@@ -113,5 +105,16 @@ export class AddMobileDetailsComponent implements OnInit {
       verticalPosition: this.verticalPosition,
     });
   }
-}
+  resetForm(): void {
+    this.mobileDetailsForm.reset();
+    this.mobileDetailsForm.value.device_photo_1 = '';
+    this.deviceList = [];
+    this.openSnackBar();
+  }
+  ngOnDestroy(){
+    if(this.subscription){
+      this.subscription.unsubscribe()
+    }
 
+  }
+}
